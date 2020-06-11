@@ -1,0 +1,29 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 843e7546..591d27fa 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -13,3 +13,6 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
+ add_subdirectory(test)
+ 
+ endif(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
++
++install(DIRECTORY cmake DESTINATION lib)
++install(DIRECTORY glm DESTINATION include FILES_MATCHING PATTERN *.h PATTERN *.hpp PATTERN *.inl)
+diff --git a/glm/CMakeLists.txt b/glm/CMakeLists.txt
+index 4ff51c81..0553140f 100644
+--- a/glm/CMakeLists.txt
++++ b/glm/CMakeLists.txt
+@@ -55,6 +55,7 @@ add_library(glm_static STATIC ${ROOT_TEXT} ${ROOT_MD} ${ROOT_NAT}
+ 	${SIMD_SOURCE}    ${SIMD_INLINE}    ${SIMD_HEADER})
+ 	target_link_libraries(glm_static PUBLIC glm)
+ 	add_library(glm::glm_static ALIAS glm_static)
++	install(TARGETS glm_static)
+ endif()
+ 
+ if(BUILD_SHARED_LIBS)
+@@ -67,4 +68,5 @@ add_library(glm_shared SHARED ${ROOT_TEXT} ${ROOT_MD} ${ROOT_NAT}
+ 	${SIMD_SOURCE}    ${SIMD_INLINE}    ${SIMD_HEADER})
+ 	target_link_libraries(glm_shared PUBLIC glm)
+ 	add_library(glm::glm_shared ALIAS glm_shared)
++	install(TARGETS glm_shared)
+ endif()
